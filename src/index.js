@@ -10,6 +10,13 @@ import Products from "./components/Product/Products";
 import ProductDetail from "./components/Product/ProductDetail";
 import Blog from "./components/Blog/Blog";
 import BlogDetail from "./components/Blog/BlogDetail";
+import AdminRegister from "./AdminComponents/AdminRegister";
+import Admin from "./Admin";
+import DashBoard from "./AdminComponents/DashBoard";
+import AdminLogin from "./AdminComponents/AdminLogin";
+import AdminAddCategory from "./AdminComponents/AdminAddCategory";
+import AdminAllCategory from "./AdminComponents/AdminAllCategory";
+import Login from "./components/User/Login";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,9 +26,17 @@ root.render(
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="/product/detail" element={<ProductDetail />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/products" element={<Products />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/detail" element={<BlogDetail />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<Admin />}>
+            <Route path="register" element={<AdminRegister />} />
+            <Route path="dashboard" element={<DashBoard />} />
+            <Route path="add-category" element={<AdminAddCategory />} />
+            <Route path="all-category" element={<AdminAllCategory />} />
+          </Route>
         </Routes>
       </App>
     </Router>
