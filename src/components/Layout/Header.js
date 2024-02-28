@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../Contexts/UserContext";
 
 export default function Header() {
+  const { userData } = useContext(UserContext);
+  function showDataUser() {
+    if (userData) {
+      console.log(userData);
+      return (
+        <li>
+          <Link to="">
+            <i className="fa fa-lock" /> {userData.user.name}
+          </Link>
+        </li>
+      );
+    } else {
+      return (
+        <li>
+          <Link to="/login">
+            <i className="fa fa-lock" /> Login
+          </Link>
+        </li>
+      );
+    }
+  }
   return (
     <header id="header">
       {/*header*/}
@@ -132,11 +154,7 @@ export default function Header() {
                       <i className="fa fa-shopping-cart" /> Cart
                     </a>
                   </li>
-                  <li>
-                    <a href="login.html">
-                      <i className="fa fa-lock" /> Login
-                    </a>
-                  </li>
+                  {showDataUser()}
                 </ul>
               </div>
             </div>

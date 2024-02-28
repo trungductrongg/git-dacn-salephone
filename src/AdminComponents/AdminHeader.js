@@ -1,13 +1,57 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import AdminMenu from "./AdminSidebar";
+import { Link } from "react-router-dom";
+import { AdminContext } from "../Contexts/Context";
 
 export default function AdminHeader() {
+  const { adminData } = useContext(AdminContext);
+  const [tasksDropdownOpen, setTasksDropdownOpen] = useState(false);
+  const [inboxDropdownOpen, setInboxDropdownOpen] = useState(false);
+
+  const [notificationDropdownOpen, setNotificationDropdownOpen] =
+    useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const handleTasksDropdownClick = () => {
+    setTasksDropdownOpen(!tasksDropdownOpen);
+  };
+
+  const handleInboxDropdownClick = () => {
+    setInboxDropdownOpen(!inboxDropdownOpen);
+  };
+
+  const handleNotificationDropdownClick = () => {
+    setNotificationDropdownOpen(!notificationDropdownOpen);
+  };
+
+  const handleUserDropdownClick = () => {
+    setUserDropdownOpen(!userDropdownOpen);
+  };
+
+  function showDataAdmin() {
+    if (adminData) {
+      return (
+        <a className="dropdown-toggle" href="#">
+          <img alt="" src="images/2.png" />
+          <span className="username">{adminData.admin_id.admin_name}</span>
+          <b className="caret" />
+        </a>
+      );
+    } else {
+      return (
+        <Link to={"/admin/login"} className="dropdown-toggle ">
+          <span className="username">Đăng nhập</span>
+        </Link>
+      );
+    }
+  }
+
   return (
     <header className="header fixed-top clearfix">
       {/*logo start*/}
       <div className="brand">
-        <a href="index.html" className="logo">
+        <Link to="/admin/dashboard" className="logo">
           VISITORS
-        </a>
+        </Link>
         <div className="sidebar-toggle-box">
           <div className="fa fa-bars" />
         </div>
@@ -17,8 +61,11 @@ export default function AdminHeader() {
         {/*  notification start */}
         <ul className="nav top-menu">
           {/* settings start */}
-          <li className="dropdown">
-            <a data-toggle="dropdown" className="dropdown-toggle" href="#">
+          <li
+            className={`dropdown ${tasksDropdownOpen ? "open" : ""}`}
+            onClick={handleTasksDropdownClick}
+          >
+            <a className="dropdown-toggle" href="#">
               <i className="fa fa-tasks" />
               <span className="badge bg-success">8</span>
             </a>
@@ -97,7 +144,11 @@ export default function AdminHeader() {
           </li>
           {/* settings end */}
           {/* inbox dropdown start*/}
-          <li id="header_inbox_bar" className="dropdown">
+          <li
+            id="header_inbox_bar"
+            className={`dropdown ${inboxDropdownOpen ? "open" : ""}`}
+            onClick={handleInboxDropdownClick}
+          >
             <a data-toggle="dropdown" className="dropdown-toggle" href="#">
               <i className="fa fa-envelope-o" />
               <span className="badge bg-important">4</span>
@@ -163,7 +214,11 @@ export default function AdminHeader() {
           </li>
           {/* inbox dropdown end */}
           {/* notification dropdown start*/}
-          <li id="header_notification_bar" className="dropdown">
+          <li
+            id="header_notification_bar"
+            className={`dropdown ${notificationDropdownOpen ? "open" : ""}`}
+            onClick={handleNotificationDropdownClick}
+          >
             <a data-toggle="dropdown" className="dropdown-toggle" href="#">
               <i className="fa fa-bell-o" />
               <span className="badge bg-warning">3</span>
@@ -219,12 +274,16 @@ export default function AdminHeader() {
             />
           </li>
           {/* user login dropdown start*/}
-          <li className="dropdown">
-            <a data-toggle="dropdown" className="dropdown-toggle" href="#">
+          <li
+            className={`dropdown ${userDropdownOpen ? "open" : ""}`}
+            onClick={handleUserDropdownClick}
+          >
+            {showDataAdmin()}
+            {/* <a className="dropdown-toggle" href="#">
               <img alt="" src="images/2.png" />
               <span className="username">John Doe</span>
               <b className="caret" />
-            </a>
+            </a> */}
             <ul className="dropdown-menu extended logout">
               <li>
                 <a href="#">
@@ -238,9 +297,9 @@ export default function AdminHeader() {
                 </a>
               </li>
               <li>
-                <a href="login.html">
+                <Link to="/admin/login">
                   <i className="fa fa-key" /> Log Out
-                </a>
+                </Link>
               </li>
             </ul>
           </li>

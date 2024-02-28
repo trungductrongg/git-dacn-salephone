@@ -1,14 +1,20 @@
-import { useLocation } from "react-router-dom";
 import "./App.css";
 import AdminHeader from "./AdminComponents/AdminHeader";
+import AdminSidebar from "./AdminComponents/AdminSidebar";
+import { Outlet } from "react-router-dom";
 
-function App(props) {
+function App() {
   return (
-    <div>
+    <section id="container">
       <AdminHeader />
-      <h1>Nội dung của màn hình không có header, footer và slider</h1>
-      {/* Thêm các thành phần khác bạn muốn hiển thị */}
-    </div>
+      <AdminSidebar />
+
+      <section id="main-content">
+        <section className="wrapper">
+          <Outlet />
+        </section>
+      </section>
+    </section>
   );
 }
 
