@@ -16,6 +16,7 @@ import DashBoard from "./AdminComponents/DashBoard";
 import AdminLogin from "./AdminComponents/AdminLogin";
 import AdminAddCategory from "./AdminComponents/AdminAddCategory";
 import AdminAllCategory from "./AdminComponents/AdminAllCategory";
+import AdminEditCategory from "./AdminComponents/AdminEditCategory";
 import Login from "./components/User/Login";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -36,6 +37,7 @@ root.render(
             <Route path="dashboard" element={<DashBoard />} />
             <Route path="add-category" element={<AdminAddCategory />} />
             <Route path="all-category" element={<AdminAllCategory />} />
+            <Route path="edit-category/:id" element={<AdminEditCategory />} />
           </Route>
         </Routes>
       </App>

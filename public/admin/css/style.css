@@ -1810,6 +1810,10 @@ ul.bs-glyphicons-list {
   border-color: #ddede0 !important;
   font-size: 20px;
 }
+
+.style-edit {
+  font-size: 20px;
+}
 p.hd-title {
   color: #b64d99;
   font-size: 20px;

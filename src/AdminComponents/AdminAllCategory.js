@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import API from "../api";
+import { Link } from "react-router-dom";
 
 export default function AdminAllCategory() {
   const [category, setCategory] = useState([]);
+  const [statusCategory, setStatusCategory] = useState([]);
 
   useEffect(() => {
     API.get("admin/all-category")
@@ -14,6 +16,45 @@ export default function AdminAllCategory() {
         console.log(error.response.data);
       });
   }, []);
+
+  function clickUpdateStatusCategory(e) {
+    const id_category = e.target.id;
+    const status_category = e.target.dataset.name;
+    if (status_category === "0") {
+      console.log("id", id_category);
+      API.get(`admin/active/${id_category}`)
+        .then((res) => {
+          console.log(res.data);
+          API.get("admin/all-category")
+            .then((res) => {
+              console.log(res.data);
+              setCategory(res.data);
+            })
+            .catch(function (error) {
+              console.log(error.response.data);
+            });
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+        });
+    } else if (status_category === "1") {
+      API.get(`admin/un-active/${id_category}`)
+        .then((res) => {
+          console.log(res.data);
+          API.get("admin/all-category")
+            .then((res) => {
+              console.log(res.data);
+              setCategory(res.data);
+            })
+            .catch(function (error) {
+              console.log(error.response.data);
+            });
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+        });
+    }
+  }
 
   function getCategory() {
     if (Object.keys(category).length > 0) {
@@ -28,24 +69,41 @@ export default function AdminAllCategory() {
             </td>
             <td>{category[value].category_name}</td>
             <td>
-              <span className="text-ellipsis">
+              <span
+                onClick={clickUpdateStatusCategory}
+                className="text-ellipsis"
+              >
                 {category[value].category_status === 0 ? (
-                  <span className="fa fa-thumbs-down fa-thumb-styling"></span>
+                  <span
+                    id={category[value].category_id}
+                    data-name="0"
+                    className="fa fa-thumbs-down fa-thumb-styling"
+                  ></span>
                 ) : (
-                  <span className="fa fa-thumbs-up fa-thumb-styling"></span>
+                  <span
+                    id={category[value].category_id}
+                    data-name="1"
+                    className="fa fa-thumbs-up fa-thumb-styling"
+                  ></span>
                 )}
               </span>
             </td>
 
             <td className="text-center">
-              <a
-                href
-                className="active d-flex justify-content-between"
+              <Link
+                to={`/admin/edit-category/${category[value].category_id}`}
+                className="active d-flex justify-content-between style-edit"
                 ui-toggle-class
               >
                 <i className="fa fa-pencil-square-o text-success text-active" />
+              </Link>
+              <Link
+                to=""
+                className="active d-flex justify-content-between style-edit"
+                ui-toggle-class
+              >
                 <i className="fa fa-times text-danger text" />
-              </a>
+              </Link>
             </td>
           </tr>
         );
