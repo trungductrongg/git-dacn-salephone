@@ -17,7 +17,12 @@ import AdminLogin from "./AdminComponents/AdminLogin";
 import AdminAddCategory from "./AdminComponents/AdminAddCategory";
 import AdminAllCategory from "./AdminComponents/AdminAllCategory";
 import AdminEditCategory from "./AdminComponents/AdminEditCategory";
+import AdminDeleteCategory from "./AdminComponents/AdminDeleteCategory";
 import Login from "./components/User/Login";
+import AdminAddBrand from "./AdminComponents/AdminAddBrand";
+import AdminAllBrand from "./AdminComponents/AdminAllBrand";
+import AdminEditBrand from "./AdminComponents/AdminEditBrand";
+import AdminDeleteBrand from "./AdminComponents/AdminDeleteBrand";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -38,6 +43,15 @@ root.render(
             <Route path="add-category" element={<AdminAddCategory />} />
             <Route path="all-category" element={<AdminAllCategory />} />
             <Route path="edit-category/:id" element={<AdminEditCategory />} />
+            <Route
+              path="delete-category/:id"
+              element={<AdminDeleteCategory />}
+            />
+
+            <Route path="add-brand" element={<AdminAddBrand />} />
+            <Route path="all-brand" element={<AdminAllBrand />} />
+            <Route path="edit-brand/:id" element={<AdminEditBrand />} />
+            <Route path="delete-brand/:id" element={<AdminDeleteBrand />} />
           </Route>
         </Routes>
       </App>

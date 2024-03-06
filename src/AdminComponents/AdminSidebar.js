@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function AdminSidebar() {
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState({
+    category1: false,
+    category2: false,
+  });
 
-  const toggleSubMenu = () => {
-    setIsSubMenuOpen(!isSubMenuOpen);
+  const toggleSubMenu = (category) => {
+    setIsSubMenuOpen({
+      ...isSubMenuOpen,
+      [category]: !isSubMenuOpen[category],
+    });
   };
 
   return (
@@ -25,20 +31,45 @@ export default function AdminSidebar() {
               </Link>
             </li>
             <li className="sub-menu dcjq-parent-li">
-              <a className="dcjq-parent" onClick={toggleSubMenu}>
+              <a
+                className="dcjq-parent"
+                onClick={() => toggleSubMenu("category1")}
+              >
                 <i className="fa fa-book" />
                 <span>Danh mục sản phẩm</span>
                 <span className="dcjq-icon" />
               </a>
               <ul
                 className="sub"
-                style={{ display: isSubMenuOpen ? "block" : "none" }}
+                style={{ display: isSubMenuOpen.category1 ? "block" : "none" }}
               >
                 <li>
                   <Link to="/admin/add-category">Thêm danh mục</Link>
                 </li>
                 <li>
                   <Link to="/admin/all-category">Xem danh mục</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li className="sub-menu dcjq-parent-li">
+              <a
+                className="dcjq-parent"
+                onClick={() => toggleSubMenu("category2")}
+              >
+                <i className="fa fa-book" />
+                <span>Thương Hiệu</span>
+                <span className="dcjq-icon" />
+              </a>
+              <ul
+                className="sub"
+                style={{ display: isSubMenuOpen.category2 ? "block" : "none" }}
+              >
+                <li>
+                  <Link to="/admin/add-brand">Thêm Thương Hiệu</Link>
+                </li>
+                <li>
+                  <Link to="/admin/all-brand">Xem Thương Hiệu</Link>
                 </li>
               </ul>
             </li>

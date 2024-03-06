@@ -3,12 +3,12 @@ import useInputChange from "../CustomHook";
 import API from "../api.js";
 import Error from "../Error";
 
-export default function AdminAddCategory() {
+export default function AdminAddBrand() {
   const [message, setMessage] = useState({});
   const [inputs, setInputs] = useState({
-    category_product_name: "",
-    category_product_desc: "",
-    category_product_status: 0,
+    brand_name: "",
+    brand_desc: "",
+    brand_status: 0,
   });
 
   function handelInput(e) {
@@ -20,11 +20,11 @@ export default function AdminAddCategory() {
   function handelSubmit(e) {
     e.preventDefault();
     const data = {
-      category_product_name: inputs.category_product_name,
-      category_product_desc: inputs.category_product_desc,
-      category_product_status: inputs.category_product_status,
+      brand_product_name: inputs.brand_name,
+      brand_product_desc: inputs.brand_desc,
+      brand_product_status: inputs.brand_status,
     };
-    API.post("admin/add-category", data)
+    API.post("admin/add-brand", data)
       .then((res) => {
         console.log(res.data);
         alert(res.data.message);
@@ -41,37 +41,37 @@ export default function AdminAddCategory() {
       <div className="row">
         <div className="col-lg-12">
           <section className="panel">
-            <header className="panel-heading">Thêm danh mục sản phẩm</header>
+            <header className="panel-heading">Thêm thương hiệu</header>
             <div className="panel-body">
               <div className="position-center">
                 <form onSubmit={handelSubmit}>
                   <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Tên danh mục</label>
+                    <label htmlFor="exampleInputEmail1">Tên thương hiệu</label>
                     <input
                       type="text"
                       className="form-control"
                       id="exampleInputEmail1"
-                      name="category_product_name"
+                      name="brand_name"
                       onChange={handelInput}
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputPassword1">
-                      Mô tả danh mục
+                      Mô tả thương hiệu
                     </label>
                     <textarea
                       rows={5}
                       style={{ resize: "none" }}
                       className="form-control"
                       id="exampleInputPassword1"
-                      name="category_product_desc"
+                      name="brand_desc"
                       onChange={handelInput}
                     ></textarea>
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputPassword1">Hiển thị</label>
                     <select
-                      name="category_product_status"
+                      name="brand_status"
                       className="form-control input-sm m-bot15"
                       onChange={handelInput}
                     >
@@ -82,9 +82,9 @@ export default function AdminAddCategory() {
                   <button
                     type="submit"
                     className="btn btn-info"
-                    name="add_category_product"
+                    name="add_brand"
                   >
-                    Thêm Danh Mục
+                    Thêm thương hiệu
                   </button>
                 </form>
               </div>

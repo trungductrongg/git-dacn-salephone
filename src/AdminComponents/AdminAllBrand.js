@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import API from "../api";
 import { Link } from "react-router-dom";
 
-export default function AdminAllCategory() {
+export default function AdminAllBrand() {
   const [category, setCategory] = useState([]);
   const [statusCategory, setStatusCategory] = useState([]);
 
   useEffect(() => {
-    API.get("admin/all-category")
+    API.get("admin/all-brand")
       .then((res) => {
         console.log(res.data);
         setCategory(res.data);
@@ -22,10 +22,10 @@ export default function AdminAllCategory() {
     const status_category = e.target.dataset.name;
     if (status_category === "0") {
       console.log("id", id_category);
-      API.get(`admin/active/${id_category}`)
+      API.get(`admin/active-brand/${id_category}`)
         .then((res) => {
           console.log(res.data);
-          API.get("admin/all-category")
+          API.get("admin/all-brand")
             .then((res) => {
               console.log(res.data);
               setCategory(res.data);
@@ -38,10 +38,10 @@ export default function AdminAllCategory() {
           console.log(error.response.data);
         });
     } else if (status_category === "1") {
-      API.get(`admin/un-active/${id_category}`)
+      API.get(`admin/un-active-brand/${id_category}`)
         .then((res) => {
           console.log(res.data);
-          API.get("admin/all-category")
+          API.get("admin/all-brand")
             .then((res) => {
               console.log(res.data);
               setCategory(res.data);
@@ -67,21 +67,21 @@ export default function AdminAllCategory() {
                 <i />
               </label>
             </td>
-            <td>{category[value].category_name}</td>
+            <td>{category[value].brand_name}</td>
             <td>
               <span
                 onClick={clickUpdateStatusCategory}
                 className="text-ellipsis"
               >
-                {category[value].category_status === 0 ? (
+                {category[value].brand_status === 0 ? (
                   <span
-                    id={category[value].category_id}
+                    id={category[value].brand_id}
                     data-name="0"
                     className="fa fa-thumbs-down fa-thumb-styling"
                   ></span>
                 ) : (
                   <span
-                    id={category[value].category_id}
+                    id={category[value].brand_id}
                     data-name="1"
                     className="fa fa-thumbs-up fa-thumb-styling"
                   ></span>
@@ -91,14 +91,14 @@ export default function AdminAllCategory() {
 
             <td className="text-center">
               <Link
-                to={`/admin/edit-category/${category[value].category_id}`}
+                to={`/admin/edit-brand/${category[value].brand_id}`}
                 className="active d-flex justify-content-between style-edit"
                 ui-toggle-class
               >
                 <i className="fa fa-pencil-square-o text-success text-active" />
               </Link>
               <Link
-                to={`/admin/delete-category/${category[value].category_id}`}
+                to={`/admin/delete-brand/${category[value].brand_id}`}
                 style={{ border: "none", background: "none" }}
                 className="active d-flex justify-content-between style-edit"
               >
@@ -151,7 +151,7 @@ export default function AdminAllCategory() {
                     <i />
                   </label>
                 </th>
-                <th>Tên danh mục</th>
+                <th>Tên thương hiệu</th>
                 <th>Hiển thị</th>
                 <th className="text-center">Thao tác</th>
               </tr>
